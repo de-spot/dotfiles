@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if ping -c 1 dockertp &>/dev/null ; then
+    alias dockeroff='unset DOCKER_HOST;unset DOCKER_TLS_VERIFY'
+#    alias dockeron='export DOCKER_HOST="ssh://dockertp"'
+    alias dockeron='export DOCKER_HOST="tcp://dockertp:2376" DOCKER_TLS_VERIFY="1"'
+#    export DOCKER_HOST="ssh://dockertp"
+#    export DOCKER_HOST=tcp://dockertp:2376 DOCKER_TLS_VERIFY=1
+fi
+
