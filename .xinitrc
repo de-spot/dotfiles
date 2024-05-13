@@ -1,0 +1,21 @@
+#!/bin/bash
+xset -dpms # disable DPMS
+xset s off # disable screensaver
+xset s noblank # disable screen blank
+[ $(ps -aux | grep ssh-agent | wc -l) -gt 1] && killall ssh-agent
+ssh-agent -s | sed 's/echo/#echo/g' > ~/.ssh/agent.env
+#chmod 600 ~/.ssh/agent.env
+#. ~/.ssh/agent.env
+
+#  Keyboard rate: delay repeat
+xset r rate 300 80
+# Remap keyboard
+setxkbmap -model microsoft4000 -layout us,ru -option grp:shifts_toggle
+xmodmap .Xmodmaprc
+
+flatpak run org.mozilla.firefox &
+st &
+
+# while true; do /usr/local/bin/dwm ; done
+exec dbus-launch --exit-with-session /usr/local/bin/dwm
+

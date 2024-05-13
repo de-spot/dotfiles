@@ -1,0 +1,27 @@
+startup_message off  # Suppress boring start-up message
+defscrollback 15000  # Big scrollback buffer
+deflogin off # no utmp recording
+autodetach on # on connection lost - detach
+defutf8 on # assume utf-8
+hardstatus off
+#hardstatus firstline # will be in window' title bar
+hardstatus alwayslastline
+#hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %Y-%m-%d %{W} %c %{g}]'
+#termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'   # tell screen how to set colors. AB = background, AF=foreground
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= w}%?%-Lw%?%{= R}%n*%f %t%?%{= R}(%u)%?%{= w}%+Lw%?%= %{= g}][ %{y}Load: %l %{g}][%{B}%Y-%m-%d %{W}%c:%s %{g}]'
+
+height -w 50 210
+shell /bin/bash
+
+bind ^t screen -t 'HTop' htop
+#bind ^t screen -t 'HTop' /usr/bin/duf
+bind ^u screen -t 'Duf' ${HOME}/mybin/dufc.sh
+#shelltitle "Admin"
+#bind ^y screen -t 'DUF' duf
+screen -t 'r1'
+screen -t 'r2'
+
+source ${HOME}/.screenrc.${HOSTNAME} # Include per-host screens, you have to export variable HOSTNAME
+
+select 1  # should be AFTER all screens creation
+
