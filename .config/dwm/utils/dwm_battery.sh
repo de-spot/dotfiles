@@ -1,10 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 
 # A dwm_bar function to read the battery level and status
 # Joe Standring <git@joestandring.com>
 # GNU GPLv3
 
 dwm_battery () {
+    if [ ! -f /sys/class/power_supply/BAT0/capacity -o ! -f /sys/class/power_supply/BAT0/status ]; then
+        printf ""
+        exit
+    fi
     # Change BAT1 to whatever your battery is identified as. Typically BAT0 or BAT1
     CHARGE=$(cat /sys/class/power_supply/BAT0/capacity)
     STATUS=$(cat /sys/class/power_supply/BAT0/status)

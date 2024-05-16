@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # A dwm_bar function that displays the current keyboard layout
 # Joe Standring <git@joestandring.com>

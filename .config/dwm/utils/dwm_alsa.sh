@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Modified by Lord Brookie
 # https://github.com/brookiestein/
