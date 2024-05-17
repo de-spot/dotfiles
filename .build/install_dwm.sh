@@ -40,3 +40,4 @@ cd $HOME/.build && git clone git://git.suckless.org/slock
 cd $HOME/.build/slock && sudo make clean install
 cd $HOME/.build && git clone git://git.suckless.org/st
 cd $HOME/.build/st && sudo make clean install
+cd $HOME/.build && git clone git://github.com/davatorium/rofi.git
