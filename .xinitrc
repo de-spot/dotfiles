@@ -1,4 +1,8 @@
 #!/bin/bash
+
+#List all connected displays:
+#xrandr | grep connected | grep -v disconnected | awk '{print }'
+
 tryres() {
   local resol=$1
   echo "$resol" > ~/.xresolution
@@ -9,6 +13,7 @@ tryres() {
   fi
   return $rslt
 }
+
 xset -dpms # disable DPMS
 xset s off # disable screensaver
 xset s noblank # disable screen blank
@@ -32,6 +37,6 @@ flatpak run org.mozilla.firefox &
 #st &
 
 # while true; do /usr/local/bin/dwm ; done
-exec dbus-launch --exit-with-session /usr/local/bin/dwm
-# exec xfce4-session
-# exec gnome-session
+exec dbus-launch --exit-with-session /usr/local/bin/dwm ||
+exec gnome-session ||
+exec xfce4-session
