@@ -1,7 +1,7 @@
 #!/bin/bash
 sudo apt update
 sudo apt upgrade
-sudo apt install xorg dbus-x11 wget stterm alacritty
+sudo apt install xorg dbus-x11 wget stterm alacritty lf chafa
 sudo apt install libx11-dev libxft-dev libxinerama-dev libxrandr-dev
 sudo apt install build-essential
 
