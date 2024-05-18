@@ -11,9 +11,10 @@
   ls = ls-tree -r master --name-only
   # Display tree-like log, because default log is a pain…
   lf = log --graph --date=relative --full-history --pretty=tformat:'%C(red)%h%Creset%C(auto)%d%Creset %s %C(green)(%an %ad)%Creset'
-  lg = log --graph --date=relative --full-history --all --color --pretty=tformat:'%C(red)%h%Creset%C(auto)%d%Creset %s %C(green)(%an, %ar)%Creset'
+  lg = log --graph --date=relative --full-history --all --color --pretty=tformat:'%C(red)%h%Creset%C(auto)%d%Creset %s %C(green)(%an %ar)%Creset'
   # List local commits that were not pushed to remote repository
   review-local = "!git lg @{push}.."
+  stashdiff = "stash show -p stash@{0}"
   # Edit last commit message
   reword = commit --amend
   # Undo last commit but keep changed files in stage
