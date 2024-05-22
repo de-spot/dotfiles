@@ -37,6 +37,7 @@ flatpak run org.mozilla.firefox &
 #st &
 
 # while true; do /usr/local/bin/dwm ; done
+#exec ~/.local/bin/qtile start
 exec dbus-launch --exit-with-session /usr/local/bin/dwm ||
 exec gnome-session ||
 exec xfce4-session
