@@ -17,7 +17,7 @@ tryres() {
 xset -dpms # disable DPMS
 xset s off # disable screensaver
 xset s noblank # disable screen blank
-[ $(ps -aux | grep ssh-agent | wc -l) -gt 1] && killall ssh-agent
+#[ $(ps -aux | grep ssh-agent | wc -l) -gt 1 ] && killall ssh-agent
 ssh-agent -s | sed 's/echo/#echo/g' > ~/.ssh/agent.env
 #chmod 600 ~/.ssh/agent.env
 #. ~/.ssh/agent.env
@@ -33,11 +33,12 @@ setxkbmap -option # clear all options
 setxkbmap -model microsoft4000 -layout us,ru -option grp:caps_toggle
 xmodmap .Xmodmaprc
 
-flatpak run org.mozilla.firefox &
+#flatpak run org.mozilla.firefox &
 #st &
 
 # while true; do /usr/local/bin/dwm ; done
 #exec ~/.local/bin/qtile start
-exec dbus-launch --exit-with-session /usr/local/bin/dwm ||
-exec gnome-session ||
-exec xfce4-session
+#exec dbus-launch --exit-with-session /usr/local/bin/dwm ||
+#exec dbus-launch --exit-with-session /usr/bin/gnome-session ||
+exec dbus-launch --exit-with-session /usr/bin/gnome-session
+#exec xfce4-session
