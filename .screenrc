@@ -1,3 +1,5 @@
+#term xterm-256color
+truecolors on
 startup_message off  # Suppress boring start-up message
 defscrollback 15000  # Big scrollback buffer
 deflogin off # no utmp recording
