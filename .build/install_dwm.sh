@@ -31,13 +31,17 @@ fc-cache -f || (echo "Failed to update font cache"; exit 1)
 sudo apt install dmenu
 mkdir .build
 
+#file .xinitrc: exec dwm
 cd $HOME/.build && git clone git://git.suckless.org/dwm
-echo cd $HOME/.build/dwm
 echo vim config.def.h
-echo sudo make clean install
-echo file .xinitrc: exec dwm
+cd $HOME/.build/dwm && sudo make clean install
 cd $HOME/.build && git clone git://git.suckless.org/slock
 cd $HOME/.build/slock && sudo make clean install
+<<<<<<< Updated upstream
 cd $HOME/.build && git clone git://git.suckless.org/st
 cd $HOME/.build/st && sudo make clean install
 cd $HOME/.build && git clone git://github.com/davatorium/rofi.git
+=======
+cd $HOME/.build && git clone git://git.suckless.org/st 
+cd $HOME/.build/st && sudo make clean install
+>>>>>>> Stashed changes
