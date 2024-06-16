@@ -17,10 +17,10 @@ tryres() {
 xset -dpms # disable DPMS
 xset s off # disable screensaver
 xset s noblank # disable screen blank
-#[ $(ps -aux | grep ssh-agent | wc -l) -gt 1 ] && killall ssh-agent
-ssh-agent -s | sed 's/echo/#echo/g' > ~/.ssh/agent.env
-#chmod 600 ~/.ssh/agent.env
-#. ~/.ssh/agent.env
+if [ -x ~/.ssh-agent-ensure ]; then
+  ~/.ssh-agent-ensure
+  . ~/.ssh/agent.env
+fi
 # Resolution cascade will stop on error/failure
 tryres "3840x2160" || tryres "4096x2160" || \
   tryres "2560x1600" || tryres "1920x1200" || tryres "1920x1080" || \
