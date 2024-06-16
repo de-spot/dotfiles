@@ -37,11 +37,6 @@ echo vim config.def.h
 cd $HOME/.build/dwm && sudo make clean install
 cd $HOME/.build && git clone git://git.suckless.org/slock
 cd $HOME/.build/slock && sudo make clean install
-<<<<<<< Updated upstream
-cd $HOME/.build && git clone git://git.suckless.org/st
-cd $HOME/.build/st && sudo make clean install
-cd $HOME/.build && git clone git://github.com/davatorium/rofi.git
-=======
 cd $HOME/.build && git clone git://git.suckless.org/st 
 cd $HOME/.build/st && sudo make clean install
->>>>>>> Stashed changes
+cd $HOME/.build && git clone git://github.com/davatorium/rofi.git
