@@ -32,6 +32,9 @@ if ! command -v docker-compose &>/dev/null ; then
     alias docker-compose="docker compose"
   fi
 fi
+alias dockertp='docker context use docker-tp'
+alias dockergw='docker context use docker-gw'
+alias dockerlo='docker context use default'
 # Dotfiles
 # Init: git init --bare ~/.dotfiles
 
@@ -40,4 +43,12 @@ alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 # Clone: git clone --bare git@github.com:de-spot/dotfiles.git $HOME/.dotfiles
 # Config: dotfiles config status.showUntrackedFiles no
 
+if command -v flatpak &>/dev/null ; then
+  if flatpak list|grep md.obsidian.Obsidian &>/dev/null ; then
+    alias obsidian='flatpak run md.obsidian.Obsidian'
+  fi
+  if flatpak list|grep com.github.qarmin.czkawka &>/dev/null ; then
+    alias finddups='flatpak run com.github.qarmin.czkawka'
+  fi
+fi
 
