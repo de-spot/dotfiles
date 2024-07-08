@@ -2,6 +2,8 @@
 [user]
   name = despot
   email = despot@nospam.com
+[include]
+  path = ~/.gitconfig_user
 [color]
   # Enable colors in color-supporting terminals
   ui = auto
@@ -33,3 +35,11 @@
   decorate = false
 [diff]
   tool = meld
+[credential]
+  helper = store
+[core]
+  autocrlf = input
+[extensions]
+  objectFormat = sha256
+  compatObjectFormat = sha1
+ 
