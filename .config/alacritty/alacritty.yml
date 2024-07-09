@@ -1,7 +1,10 @@
     window:
       padding:
-        x: 10
-        y: 10
+        x: 5 
+        y: 5
+      dimensions:
+        columns: 180
+        lines: 44
       opacity: 1
 
     scrolling:
@@ -10,14 +13,16 @@
     font:
       normal:
         family: JetBrainsMono
-        style: Medium
+        style: Regular 
 
       bold:
         family: JetBrainsMono
         style: Bold
 
-      size: 22.0
-
+      size: 16.0
+      offset: 
+        x: -2
+        y: -2
     colors:
       primary:
         background: '#23252e'
