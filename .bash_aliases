@@ -1,4 +1,7 @@
 alias cdub='cd ~/Documents/0LocalUbuntu/bin'
+alias goproj='cd ~/Projects'
+alias gowork='cd ~/work'
+alias gokb='cd ~/Projects/kb/KnowledgeBase'
 alias youtube-dl='~/mybin/youtube-dl -f bestvideo\[height\<=2160\]+bestaudio/best'
 alias yt-dlp='~/mybin/yt-dlp -f bestvideo\[height\<=2160\]+bestaudio/best --merge-output-format mkv --remux-video mkv'
 alias yt-dlp='~/mybin/yt-dlp -f bestvideo\[height\<=2160\]+bestaudio/best'
