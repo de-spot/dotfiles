@@ -28,6 +28,7 @@ alias dus='du -sc --bytes *|sort -nr|awk "{print \$1,\" \",\$1,\" \",\$2;}"| num
 alias ports='ss -tanp'
 alias portsl='ss -tlnp'
 alias grepi='grep --color=auto -i'
+alias jdk17='export JAVA_HOME=/usr/lib/jvm/java-1.17.0-openjdk-amd64'
 # Resume wget by default
 alias wget='wget -c'
 if ! command -v docker-compose &>/dev/null ; then
