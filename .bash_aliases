@@ -54,5 +54,8 @@ if command -v flatpak &>/dev/null ; then
   if flatpak list|grep com.github.qarmin.czkawka &>/dev/null ; then
     alias finddups='flatpak run com.github.qarmin.czkawka'
   fi
+  if flatpak list|grep org.kde.digikam &>/dev/null ; then
+    alias digikam='flatpak run org.kde.digikam'
+  fi
 fi
 
