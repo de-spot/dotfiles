@@ -1,0 +1,40 @@
+#!/bin/bash
+# Usage:
+# if [ -x ~/.ssh-agent-ensure ]; then
+#     ~/.ssh-agent-ensure
+#     . ~/.ssh/agent.env
+# fi
+
+function start_ssh_agent() {
+  killall ssh-agent &>/dev/null
+  ssh-agent -s | sed 's/echo/#echo/g' > ~/.ssh/agent.env
+  chmod 600 ~/.ssh/agent.env
+  [[ $verbose ]] && echo "Agent relaunched and new environment created at ~/.ssh/agent.env:"
+  [[ $verbose ]] && cat ~/.ssh/agent.env
+}
+
+function ensure_agent_alive() {
+  if [ -f ~/.ssh/agent.env ]; then
+    [[ $verbose ]] && echo "Evaluating ~/.ssh/agent.env"
+    [[ $verbose ]] && cat ~/.ssh/agent.env
+    . ~/.ssh/agent.env
+    [[ $verbose ]] && echo "Looking for ssh-agent at ${SSH_AGENT_PID}"
+    [[ $verbose ]] && ps -u `whoami` --no-headers -p ${SSH_AGENT_PID} -o command,pid
+    if ps --no-headers -p ${SSH_AGENT_PID} -o command|grep ^ssh-agent &>/dev/null; then
+      [[ $verbose ]] && echo "Found ssh-agent with pid ${SSH_AGENT_PID}."
+    else
+      [[ $verbose ]] && echo "No ssh-agent found at pid ${SSH_AGENT_PID}, relaunching."
+      start_ssh_agent
+    fi
+  else
+    [[ $verbose ]] && echo "No environment file found, launching agent."
+    start_ssh_agent
+    [[ $verbose ]] && echo "Agent started with pid=${SSH_AGENT_PID}."
+  fi
+}
+ensure_agent_alive
+unset -f start_ssh_agent
+unset -f ensure_agent_alive
+
+. ~/.ssh/agent.env
+[[ $verbose ]] && set|grep SSH
