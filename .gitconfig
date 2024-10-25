@@ -14,6 +14,8 @@
   # Display tree-like log, because default log is a pain…
   lf = log --graph --date=relative --full-history --pretty=tformat:'%C(red)%h%Creset%C(auto)%d%Creset %s %C(green)(%an %ad)%Creset'
   lg = log --graph --date=relative --full-history --all --color --pretty=tformat:'%C(red)%h%Creset%C(auto)%d%Creset %s %C(green)(%an %ar)%Creset'
+  # Display full repo structure, including reflog-only commits
+  la = "!f(){ git log --graph --decorate $(git rev-list -g --all);};f"
   # List local commits that were not pushed to remote repository
   review-local = "!git lg @{push}.."
   stashdiff = "stash show -p stash@{0}"
