@@ -1,3 +1,5 @@
 syntax enable
 colorscheme pyte
+colorscheme koehler
+syntax on
 
