@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Download prerequisites. To prevent - touch files ~/.git-completion.bash and ~/.git-prompt.bash and 
+# optionally run chmod a-w ~/.git-completion.bash ~/.git-prompt.bash
+if [ ! -f ~/.git-completion.bash ]; then
+    wget -O ~/.git-completion.bash https://raw.githubusercontent.com/git/git/refs/heads/master/contrib/completion/git-completion.bash 2> /dev/null
+fi
+if [ ! -f ~/.git-prompt.bash ]; then
+    wget -O ~/.git-prompt.bash https://raw.githubusercontent.com/git/git/refs/heads/master/contrib/completion/git-prompt.sh 2> /dev/null
+fi
+if [ -f ~/.git-completion.bash ]; then
+    source ~/.git-completion.bash
+fi
+if [ -f ~/.git-prompt.sh ]; then
+    source ~/.git-prompt.sh
+fi
+b_f_isf_created=0
+if ! declare -F "is_function">/dev/null; then
+    is_function(){ declare -F "$1" > /dev/null;return $?; };
+    b_f_isf_created=1
+fi
+COLOR_GIT_DIR=${COLOR_YELLOW}
+COLOR_GIT_DIR=${COLOR_RED}
+COLOR_GIT_BR=${COLOR_CYAN}
+is_inside_git() {
+    git rev-parse --is-inside-work-tree 2>/dev/null >/dev/null
+    return $?
+}
+gen_git_part() {
+    local gitps
+    if declare -F "__git_ps1">/dev/null; then
+        gitps='$(GIT_PS1_SHOWDIRTYSTATE=1 GIT_PS1_SHOWSTASHSTATE=1 GIT_PS1_SHOWUNTRACKEDFILES=1 GIT_PS1_SHOWUPSTREAM=1 __git_ps1 "${COLOR_GIT_DIR}\W${COLOR_PS_DEFAULT} (${COLOR_GIT_BR}%s${COLOR_PS_DEFAULT})")'
+    else
+        gitps=''
+    fi
+    echo "$gitps"
+}
+# Clean up created stuff
+if [ "${b_f_isf_created}" == "1" ]; then
+    unset -f is_function
+fi
+unset -v b_f_isf_created

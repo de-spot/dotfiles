@@ -10,6 +10,7 @@ alias vdiff='meld'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias rm='rm --preserve-root'
@@ -58,4 +59,5 @@ if command -v flatpak &>/dev/null ; then
     alias digikam='flatpak run org.kde.digikam'
   fi
 fi
+
 

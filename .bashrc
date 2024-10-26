@@ -29,11 +29,29 @@ shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# DeSpot BEG
+#COLOR_PS_READLINE=$(tput setaf 7)
+COLOR_BLACK="\e[30m"
+COLOR_RED="\e[31m"
+COLOR_GREEN="\e[32m"
+COLOR_YELLOW="\e[33m"
+COLOR_BLUE="\e[34m"
+COLOR_MAGENTA="\e[35m"
+COLOR_CYAN="\e[36m"
+COLOR_LIGHT_GRAY="\e[37m"
+COLOR_GRAY="\e[90m"
+COLOR_WHITE="\e[97m"
+
 str_to_color() {
     # get "random" string that depends on string, take first 2 bytes, convert to dec, then range to 32-37
     echo $1|md5sum|cut -c-2|xargs -i printf "%d\n" "0x{}"|awk '{print int($0/255.0*(37-32)+32)}'
 }
-gen_prompt_function() {
+# Git-related BEG
+if [ -f ~/.git-setup ]; then
+    source ~/.git-setup
+fi
+gen_ps_userhost() {
     local hostpart userpart
     hostpart=$(str_to_color $HOSTNAME)
     if [ $EUID -eq 0 ]; then
@@ -43,7 +61,24 @@ gen_prompt_function() {
     fi
     printf '\[\e[%d;1m\]\\u\[\e[m\]@\[\e[%d;1m\]\h\[\e[m\]' "$userpart" "$hostpart"
 }
-PS1="$(gen_prompt_function)"'\$ '
+gen_ps_pwd() {
+# TODO: measure curent dir length and shorten path if too long; use next line for beginning
+# echo $PWD | sed -E -e "s:^${HOME}:~:" -e "s:([^/\.]{5})[^/]+/:\1/:g"
+#TODO: Incomplete!
+   echo '\w'
+   return
+   local p1 p2
+   if [[ is_inside_git ]]; then
+       p1=$(dirname $PWD)
+       p2=${p1/$HOME/\~}/123
+#       echo "from: $p1    to: $p2"
+       echo "$p2"
+   else
+       echo '\w 456'
+   fi
+}
+# Git-related END
+PS1="$(gen_ps_userhost)"'\$ '
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
@@ -69,24 +104,26 @@ if [ -n "$force_color_prompt" ]; then
 	color_prompt=
     fi
 fi
-
+COLOR_PS_READLINE="${COLOR_WHITE}"
+COLOR_PS_DEFAULT=${COLOR_WHITE}
 #if [ "$color_prompt" = yes ]; then
 #    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-   PS1="$(gen_prompt_function)"'\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+   PS1="$(gen_ps_userhost)"'\[\e[00m\]:\[\e[01;34m\]'$(gen_ps_pwd)'\[\e[00m\] '"$(gen_git_part)"' \$ '"${COLOR_PS_READLINE}"
 #else
 #    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 #fi
 unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
-#case "$TERM" in
-#xterm*|rxvt*)
-#    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-#    ;;
-#*)
-#    ;;
-#esac
-#
+if [ -x ~/.ssh-agent-ensure ]; then
+    ~/.ssh-agent-ensure
+    . ~/.ssh/agent.env
+fi
+# My aliases
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+# DeSpot END
+
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -102,23 +139,10 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-if [ -x ~/.ssh-agent-ensure ]; then
-    ~/.ssh-agent-ensure
-    . ~/.ssh/agent.env
-fi
-# My aliases
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
