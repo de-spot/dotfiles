@@ -108,7 +108,7 @@ COLOR_PS_READLINE="${COLOR_WHITE}"
 COLOR_PS_DEFAULT=${COLOR_WHITE}
 #if [ "$color_prompt" = yes ]; then
 #    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-   PS1="$(gen_ps_userhost)"'\[\e[00m\]:\[\e[01;34m\]'$(gen_ps_pwd)'\[\e[00m\] '"$(gen_git_part)"' \$ '"${COLOR_PS_READLINE}"
+   PS1="$(gen_ps_userhost)"'\[\e[00m\]:\[\e[01;34m\]'$(gen_ps_pwd)'\[\e[00m\]'"$(gen_git_part)"' \$ '"${COLOR_PS_READLINE}"
 #else
 #    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 #fi

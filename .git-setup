@@ -29,7 +29,7 @@ is_inside_git() {
 gen_git_part() {
     local gitps
     if declare -F "__git_ps1">/dev/null; then
-        gitps='$(GIT_PS1_SHOWDIRTYSTATE=1 GIT_PS1_SHOWSTASHSTATE=1 GIT_PS1_SHOWUNTRACKEDFILES=1 GIT_PS1_SHOWUPSTREAM=1 __git_ps1 "${COLOR_GIT_DIR}\W${COLOR_PS_DEFAULT} (${COLOR_GIT_BR}%s${COLOR_PS_DEFAULT})")'
+        gitps='$(GIT_PS1_SHOWDIRTYSTATE=1 GIT_PS1_SHOWSTASHSTATE=1 GIT_PS1_SHOWUNTRACKEDFILES=1 GIT_PS1_SHOWUPSTREAM=1 __git_ps1 " ${COLOR_GIT_DIR}\W${COLOR_PS_DEFAULT} (${COLOR_GIT_BR}%s${COLOR_PS_DEFAULT})")'
     else
         gitps=''
     fi
