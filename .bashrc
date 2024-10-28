@@ -48,23 +48,19 @@ str_to_color() {
     echo $1|md5sum|cut -c-2|xargs -i printf "%d\n" "0x{}"|awk '{print int($0/255.0*(37-32)+32)}'
 }
 # Git-related BEG
-if [ -f ~/.git-setup ]; then
+# Do not allow for root, as involves uncontrollable external resource
+if [ $(id -u) -ne 0 -a -f ~/.git-setup ]; then
     source ~/.git-setup
 fi
-gen_ps_userhost() {
-    local hostpart userpart
-    hostpart=$(str_to_color $HOSTNAME)
-    if [ $EUID -eq 0 ]; then
-        userpart='31' # RED
-    else
-        userpart=$(str_to_color $USER)
-    fi
-    printf '\[\e[%d;1m\]\\u\[\e[m\]@\[\e[%d;1m\]\h\[\e[m\]' "$userpart" "$hostpart"
-}
 gen_ps_pwd() {
 # TODO: measure curent dir length and shorten path if too long; use next line for beginning
 # echo $PWD | sed -E -e "s:^${HOME}:~:" -e "s:([^/\.]{5})[^/]+/:\1/:g"
 #TODO: Incomplete!
+   # Skip for root, see comment above for .git-setup
+   if [ $(id -u) -eq 0 ]; then
+       echo '\w'
+       return
+   fi
    echo '\w'
    return
    local p1 p2
@@ -78,6 +74,16 @@ gen_ps_pwd() {
    fi
 }
 # Git-related END
+gen_ps_userhost() {
+    local hostpart userpart
+    hostpart=$(str_to_color $HOSTNAME)
+    if [ $EUID -eq 0 ]; then
+        userpart='31' # RED
+    else
+        userpart=$(str_to_color $USER)
+    fi
+    printf '\[\e[%d;1m\]\\u\[\e[m\]@\[\e[%d;1m\]\h\[\e[m\]' "$userpart" "$hostpart"
+}
 PS1="$(gen_ps_userhost)"'\$ '
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
