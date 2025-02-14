@@ -12,8 +12,8 @@
   aliases = !git config --get-regexp alias | sed -re 's/alias\\.(\\S*)\\s(.*)$/\\1 = \\2/g'
   ls = ls-tree -r master --name-only
   # Display tree-like log, because default log is a pain…
-  lf = log --graph --date=relative --full-history --pretty=tformat:'%C(red)%h%Creset%C(auto)%d%Creset %s %C(green)(%an %ad)%Creset'
-  lg = log --graph --date=relative --full-history --all --color --pretty=tformat:'%C(red)%h%Creset%C(auto)%d%Creset %s %C(green)(%an %ar)%Creset'
+  lf = log --graph --date=relative --full-history               --pretty=tformat:'%C(red)%h%C(reset)%C(auto)%d%C(reset) %s %C(green)(%an %ad)%C(reset)'
+  lg = log --graph --date=relative --full-history --all --color --pretty=tformat:'%C(red)%h%C(reset)%C(auto)%d%C(reset) %s %C(green)(%an %ar)%C(reset)'
   # Display full repo structure, including reflog-only commits
   la = "!f(){ git log --graph --decorate $(git rev-list -g --all);};f"
   # List local commits that were not pushed to remote repository
@@ -31,10 +31,10 @@
   # Use abbrev SHAs whenever possible/relevant instead of full 40 chars
   abbrevCommit = true
   # Automatically --follow when given a single path
-  follow = true
+  ; follow = true
   # Disable decorate for reflog
   # (because there is no dedicated `reflog` section available)
-  decorate = false
+  ; decorate = false
 [diff]
   tool = meld
 [credential]
@@ -44,4 +44,3 @@
 [extensions]
   objectFormat = sha256
   compatObjectFormat = sha1
- 
