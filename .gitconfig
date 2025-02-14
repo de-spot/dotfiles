@@ -42,10 +42,12 @@
 [core]
   autocrlf = false
   eol = lf
-[pull]
-  ff = only
 [advice]
   skippedCherryPicks = false
+[pull]
+  ff = only
+[push]
+  autoSetupRemote = true
 [extensions]
   objectFormat = sha256
   compatObjectFormat = sha1
