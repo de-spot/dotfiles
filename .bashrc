@@ -128,6 +128,9 @@ fi
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+if [ -f ~/.bash_aliases_${USER} ]; then
+    . ~/.bash_aliases_${USER}
+fi
 # DeSpot END
 
 # enable color support of ls and also add handy aliases
