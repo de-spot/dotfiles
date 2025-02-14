@@ -40,7 +40,12 @@
 [credential]
   helper = store
 [core]
-  autocrlf = input
+  autocrlf = false
+  eol = lf
+[pull]
+  ff = only
+[advice]
+  skippedCherryPicks = false
 [extensions]
   objectFormat = sha256
   compatObjectFormat = sha1
